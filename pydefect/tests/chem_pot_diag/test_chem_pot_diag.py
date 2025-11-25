@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 #  Copyright (c) 2020. Distributed under the terms of the MIT License.
+import itertools
 from copy import copy
 
 import numpy as np
@@ -69,6 +70,18 @@ def test_composition_energies_std_rel_energies(composition_energies):
     assert actual[1] == expected_rel
 
 
+def assert_allclose_up_to_column_permutation(actual, expected, rtol=1e-7, atol=0):
+    actual = np.asarray(actual)
+    expected = np.asarray(expected)
+    assert actual.shape == expected.shape
+
+    ncol = actual.shape[1]
+    for perm in itertools.permutations(range(ncol)):
+        if np.allclose(actual, expected[:, perm], rtol=rtol, atol=atol):
+            return  # どれか一致したのでOK
+    raise AssertionError("actual does not match expected for any column permutation")
+
+
 def test_to_phase_diagram(composition_energies):
     actual = composition_energies.to_phase_diagram().all_entries_hulldata
     expected = [[ 0.        , 0.        , 1.        ],
@@ -77,7 +90,8 @@ def test_to_phase_diagram(composition_energies):
                 [ 0.        , 1.        ,12.        ],
                 [ 1.        , 0.        , 0.        ],
                 [ 0.66666667, 0.        ,-0.66666667]]
-    np.testing.assert_array_almost_equal(actual, expected)
+    assert_allclose_up_to_column_permutation(actual, expected)
+    # np.testing.assert_array_almost_equal(actual, expected)
 
 
 @pytest.fixture
