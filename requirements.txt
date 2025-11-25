@@ -5,3 +5,4 @@ vise
 tabulate
 adjustText
 matplotlib-label-lines
+scikit-image

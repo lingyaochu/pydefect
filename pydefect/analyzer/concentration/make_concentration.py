@@ -71,8 +71,8 @@ class MakeCarrierConcentrations:
         self.cb_dos = CBDos((energies - self._vbm).tolist(), doses)
 
     def carrier_concentration(self, Ef):
-        p = self.vb_dos.carrier_concentration(Ef, self.T) / self._V
-        n = self.cb_dos.carrier_concentration(Ef, self.T) / self._V
+        p = float(self.vb_dos.carrier_concentration(Ef, self.T) / self._V)
+        n = float(self.cb_dos.carrier_concentration(Ef, self.T) / self._V)
         return CarrierConcentration(p, n)
 
     def _concentration(self, Ef):
@@ -111,7 +111,7 @@ class MakeConcentrations:
         for (c, e) in single_energies.charge_energies_at_ef(Ef):
             charges.append(c)
             deg = self._degeneracies[name][c].degeneracy
-            concentrations.append(boltzmann_dist(e, self.T) * deg / self._V)
+            concentrations.append(float(boltzmann_dist(e, self.T) * deg / self._V))
 
         concentrations = self._redistribute(concentrations, name)
         return DefectConcentration(name, charges, concentrations)

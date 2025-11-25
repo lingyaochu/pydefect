@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 #  Copyright (c) 2023 Kumagai group.
 import numpy as np
+import pytest
+
 from pydefect.analyzer.concentration.concentration import \
     ConcentrationByFermiLevel, Concentration, CarrierConcentration, \
     DefectConcentration
@@ -40,8 +42,8 @@ con_by_Ef = ConcentrationByFermiLevel(
     T=1000.0,
     concentrations=[
         Concentration(Ef=1.0,
-                      carrier=CarrierConcentration(p=9.124767652322644e-06,
-                                                   n=9.124767651562896e-06),
+                      carrier=CarrierConcentration(p=9.124767654106573e-06,
+                                                   n=9.124767653346825e-06),
                       defects=[DefectConcentration(name='Va_O1',
                                                    charges=[0],
                                                    concentrations=[1.0],
