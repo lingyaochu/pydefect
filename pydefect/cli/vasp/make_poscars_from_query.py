@@ -19,7 +19,7 @@ def make_poscars_from_query(materials_query: List[Union[dict, "SummaryDoc"]],
     for query in materials_query:
         try:
             reduced_formula = Composition(query["full_formula"]).reduced_formula
-        except TypeError:
+        except (TypeError, AttributeError, KeyError):
             # For new MPRester.
             reduced_formula = query.formula_pretty
 
@@ -33,7 +33,7 @@ def _make_solid_directory(path: Path, reduced_formula: str,
                           query: Union[dict, "SummaryDoc"]):
     try:
         task_id = query['task_id']
-    except TypeError:
+    except (TypeError, AttributeError, KeyError):
         # For new MPRester.
         task_id = query.material_id
 
@@ -46,7 +46,7 @@ def _make_solid_directory(path: Path, reduced_formula: str,
         d = {"total_magnetization": query["total_magnetization"],
              "band_gap": query["band_gap"],
              "data_source": query["task_id"]}
-    except TypeError:
+    except (TypeError, AttributeError, KeyError):
         # For new MPRester.
         query.structure.to(filename=str(dirname / "POSCAR"))
         d = {"total_magnetization": query.total_magnetization,
