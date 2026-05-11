@@ -7,7 +7,7 @@ from pydefect.chem_pot_diag.chem_pot_diag import CompositionEnergy, \
 from pydefect.cli.vasp.make_composition_energies_from_mp import \
     make_composition_energies_from_mp, remove_higher_energy_comp
 from pymatgen.core import Composition, Element
-from pymatgen.entries.computed_entries import ComputedEntry
+from pymatgen.core.entries import ComputedEntry
 
 
 @pytest.fixture

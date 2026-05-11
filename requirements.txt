@@ -1,6 +1,6 @@
 numpy
 monty
-pymatgen
+pymatgen-core
 vise
 tabulate
 adjustText

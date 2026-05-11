@@ -10,9 +10,6 @@ module_dir = os.path.dirname(os.path.abspath(__file__))
 reqs_raw = open(os.path.join(module_dir, "requirements.txt")).read()
 reqs_list = [r.replace("==", "~=") for r in reqs_raw.split("\n")]
 
-#with open("README.md", "r") as fh:
-#    long_description = fh.read()
-
 setup(
     name='pydefect',
     version=__version__,

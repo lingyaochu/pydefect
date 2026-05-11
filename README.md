@@ -14,7 +14,7 @@ Installation instructions
 1. Requirements
   - Python 3.7 or higher
   - vise
-  - pymatgen
+  - pymatgen-core
   - see requirements.txt for others
   
 
