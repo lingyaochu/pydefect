@@ -43,6 +43,32 @@ def make_composition_energies_from_mp(elements: List[str],
     return CompositionEnergies(comp_es)
 
 
+# def make_composition_energies_from_mp(elements: List[str],
+#                                       atom_energy_yaml: Optional[str] = None,
+#                                       ) -> CompositionEnergies:
+#     """Obtain the energies from Materials Project.
+
+#     When the atom_energy_yaml is provided, the total energies are aligned
+#     via atom energies.
+#     """
+#     properties = ["formula_pretty", "energy_per_atom", "composition", "material_id"]
+#     entries = MpQuery(elements, properties=properties).materials
+#     comp_es = {}
+#     # if atom_energy_yaml:
+#     #     energies = loadfn(atom_energy_yaml)
+#     #     diff = {e: energies[e] - mp_energies[e] for e in elements}
+#     # else:
+#     # diff = {e: 0.0 for e in elements}
+
+#     for e in entries:
+#         key = e.composition
+#         energy = e.energy_per_atom
+#         # for k, v in key.as_dict().items():
+#         #     energy += diff[k] * v
+#         comp_es[key] = CompositionEnergy(energy, e.material_id)
+#     comp_es = remove_higher_energy_comp(comp_es)
+#     return CompositionEnergies(comp_es)
+
 def remove_higher_energy_comp(
         comp_energies: Dict[Composition, CompositionEnergy]):
     comp_energy_pairs = [[k, v] for k, v in comp_energies.items()]
