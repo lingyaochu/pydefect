@@ -90,8 +90,8 @@ def test_make_parchg_dir(tmpdir, mocker):
     assert Path("parchg/WAVECAR").read_text() == "d"
 
     actual = ViseIncar.from_file("parchg/INCAR")
-    expected = {"ALGO": "Normal", "LPARD": True, "LSEPB": True, "KPAR": 1,
-                "IBAND": "2 3"}
+    expected = {'ALGO': 'Normal', 'KPAR': 1, 'LPARD': True, 'IBAND': [2, 3],
+                'LSEPB': True}
     assert actual == expected
 
 

@@ -9,7 +9,7 @@ from pydefect.chem_pot_diag.chem_pot_diag import CompositionEnergy, \
     CompositionEnergies
 from pydefect.util.mp_tools import MpQuery
 from pymatgen.core import Composition
-from pymatgen.entries.computed_entries import ComputedEntry
+from pymatgen.core.entries import ComputedEntry
 from vise.atom_energies.atom_energy import mp_energies
 from vise.util.logger import get_logger
 
