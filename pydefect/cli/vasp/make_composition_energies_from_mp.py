@@ -10,12 +10,22 @@ from pydefect.chem_pot_diag.chem_pot_diag import CompositionEnergy, \
 from pydefect.util.mp_tools import MpQuery
 from pymatgen.core import Composition
 from pymatgen.core.entries import ComputedEntry
+from emmet.core.summary import MPDataDoc
 from vise.atom_energies.atom_energy import mp_energies
 from vise.util.logger import get_logger
 
 parent = Path(__file__).parent
 logger = get_logger(__name__)
 
+def make_computed_entry_from_MpQuery(materials: List[MPDataDoc]):
+    entries = []
+    for entry in materials:
+        composition = entry.composition
+        energy = entry.energy_per_atom * composition.num_atoms
+        entry_id = str(entry.material_id)
+        entries.append(ComputedEntry(composition=composition,
+                        energy=energy, entry_id=entry_id))
+    return entries
 
 def make_composition_energies_from_mp(elements: List[str],
                                       atom_energy_yaml: Optional[str] = None,
@@ -25,7 +35,9 @@ def make_composition_energies_from_mp(elements: List[str],
     When the atom_energy_yaml is provided, the total energies are aligned
     via atom energies.
     """
-    entries: List[ComputedEntry] = MpQuery(elements).materials
+    properties = ["material_id", "composition", "energy_per_atom"]
+    materials = MpQuery(elements, properties=properties).materials
+    entries: List[ComputedEntry] = make_computed_entries_from_MpQuer(materials)
     comp_es = {}
     if atom_energy_yaml:
         energies = loadfn(atom_energy_yaml)
