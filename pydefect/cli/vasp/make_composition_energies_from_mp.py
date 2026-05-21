@@ -17,7 +17,7 @@ from vise.util.logger import get_logger
 parent = Path(__file__).parent
 logger = get_logger(__name__)
 
-def make_computed_entry_from_MpQuery(materials: List[MPDataDoc]):
+def make_computed_entry_from_mp_query(materials: List[MPDataDoc]):
     entries = []
     for entry in materials:
         composition = entry.composition
@@ -37,7 +37,7 @@ def make_composition_energies_from_mp(elements: List[str],
     """
     properties = ["material_id", "composition", "energy_per_atom"]
     materials = MpQuery(elements, properties=properties).materials
-    entries: List[ComputedEntry] = make_computed_entry_from_MpQuery(materials)
+    entries: List[ComputedEntry] = make_computed_entry_from_mp_query(materials)
     comp_es = {}
     if atom_energy_yaml:
         energies = loadfn(atom_energy_yaml)
