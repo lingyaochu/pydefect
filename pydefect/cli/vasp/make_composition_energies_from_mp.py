@@ -37,7 +37,7 @@ def make_composition_energies_from_mp(elements: List[str],
     """
     properties = ["material_id", "composition", "energy_per_atom"]
     materials = MpQuery(elements, properties=properties).materials
-    entries: List[ComputedEntry] = make_computed_entries_from_MpQuer(materials)
+    entries: List[ComputedEntry] = make_computed_entry_from_MpQuery(materials)
     comp_es = {}
     if atom_energy_yaml:
         energies = loadfn(atom_energy_yaml)
