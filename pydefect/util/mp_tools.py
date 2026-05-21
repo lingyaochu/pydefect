@@ -22,7 +22,7 @@ class MpQuery:
             logger.info("Note that you're using the newer MPRester.")
             default_fields = ["material_id", "formula_pretty", "structure",
                               "symmetry", "band_gap", "total_magnetization",
-                              "types_of_magnetic_species"]
+                              "types_of_magnetic_species", "composition"]
             properties = properties or default_fields
             self.materials = m.materials.summary.search(
                 chemsys=chemsys(element_list),
