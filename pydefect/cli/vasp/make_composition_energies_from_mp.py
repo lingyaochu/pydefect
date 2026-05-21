@@ -10,7 +10,7 @@ from pydefect.chem_pot_diag.chem_pot_diag import CompositionEnergy, \
 from pydefect.util.mp_tools import MpQuery
 from pymatgen.core import Composition
 from pymatgen.core.entries import ComputedEntry
-from emmet.core.summary import MPDataDoc
+from emmet.core.summary import SummaryDoc as MPDataDoc
 from vise.atom_energies.atom_energy import mp_energies
 from vise.util.logger import get_logger
 
