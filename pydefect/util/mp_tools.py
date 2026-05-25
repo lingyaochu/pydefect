@@ -20,8 +20,9 @@ class MpQuery:
         with MPRester() as m:
             # Due to mp_decode=True by default, class objects are restored.
             logger.info("Note that you're using the newer MPRester.")
-            default_fields = ["material_id", "formula_pretty", "structure",
-                              "symmetry", "band_gap", "total_magnetization",
+            default_fields = ["material_id", "formula_pretty", "composition",
+                              "energy_per_atom", "structure", "symmetry",
+                              "band_gap", "total_magnetization",
                               "types_of_magnetic_species"]
             properties = properties or default_fields
             self.materials = m.materials.summary.search(
@@ -38,6 +39,5 @@ def chemsys(element_list: list):
             result.append('-'.join(comb))
 
     return result
-
 
 

@@ -2,7 +2,7 @@
 #  Copyright (c) 2020 Kumagai group.
 from itertools import groupby
 from pathlib import Path
-from typing import List, Optional, Dict
+from typing import Dict, List, Optional, Union
 
 from monty.serialization import loadfn
 from pydefect.chem_pot_diag.chem_pot_diag import CompositionEnergy, \
@@ -17,14 +17,19 @@ from vise.util.logger import get_logger
 parent = Path(__file__).parent
 logger = get_logger(__name__)
 
-def make_computed_entry_from_mp_query(materials: List[MPDataDoc]):
+def make_computed_entry_from_mp_query(
+        materials: List[Union[ComputedEntry, MPDataDoc]]):
     entries = []
     for entry in materials:
-        composition = entry.composition
-        energy = entry.energy_per_atom * composition.num_atoms
-        entry_id = str(entry.material_id)
-        entries.append(ComputedEntry(composition=composition,
-                        energy=energy, entry_id=entry_id))
+        if isinstance(entry, ComputedEntry):
+            entries.append(entry)
+        else:
+            composition = entry.composition
+            energy = entry.energy_per_atom * composition.num_atoms
+            entry_id = str(entry.material_id)
+            entries.append(ComputedEntry(composition=composition,
+                                         energy=energy,
+                                         entry_id=entry_id))
     return entries
 
 def make_composition_energies_from_mp(elements: List[str],
@@ -35,8 +40,7 @@ def make_composition_energies_from_mp(elements: List[str],
     When the atom_energy_yaml is provided, the total energies are aligned
     via atom energies.
     """
-    properties = ["material_id", "composition", "energy_per_atom"]
-    materials = MpQuery(elements, properties=properties).materials
+    materials = MpQuery(elements).materials
     entries: List[ComputedEntry] = make_computed_entry_from_mp_query(materials)
     comp_es = {}
     if atom_energy_yaml:
